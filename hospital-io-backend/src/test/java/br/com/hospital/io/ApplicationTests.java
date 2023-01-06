@@ -1,10 +1,10 @@
-package com.delicia.hospitaliobackend;
+package br.com.hospital.io;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class HospitalIoBackendApplicationTests {
+class ApplicationTests {
 
 	@Test
 	void contextLoads() {

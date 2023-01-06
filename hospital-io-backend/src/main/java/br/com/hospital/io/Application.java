@@ -1,13 +1,13 @@
-package com.delicia.hospitaliobackend;
+package br.com.hospital.io;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class HospitalIoBackendApplication {
+public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(HospitalIoBackendApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 
 }
