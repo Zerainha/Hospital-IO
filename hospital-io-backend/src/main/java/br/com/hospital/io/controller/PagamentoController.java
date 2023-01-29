@@ -17,26 +17,26 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import br.com.hospital.io.model.Administrador;
-import br.com.hospital.io.model.dto.AdministradorDTO;
+import br.com.hospital.io.model.Pagamento;
+import br.com.hospital.io.model.dto.PagamentoDTO;
 
-import br.com.hospital.io.service.AdministradorService;
+import br.com.hospital.io.service.PagamentoService;
 
 @RestController
-@RequestMapping(value = "/administrador/v1/api")
-public class AdministradorController {
+@RequestMapping(value = "/Pagamento/v1/api")
+public class PagamentoController {
 	
 	@Autowired
-	private AdministradorService administradorService;
+	private PagamentoService pagamentoService;
 	
 	@Autowired
 	private ModelMapper mapper; // BEAN CRIADO PARA INSTANCIAR O MAPPER 
 	
 	//FindAll
 	@GetMapping(value="/listar")
-	public ResponseEntity<List<AdministradorDTO>> findAll(){
-		List<Administrador> list = administradorService.findAll();
-		List<AdministradorDTO> listDTO = list.stream().map(Administrador -> mapper.map(Administrador, AdministradorDTO.class)).collect(Collectors.toList());
+	public ResponseEntity<List<PagamentoDTO>> findAll(){
+		List<Pagamento> list = pagamentoService.findAll();
+		List<PagamentoDTO> listDTO = list.stream().map(pagamento -> mapper.map(pagamento, PagamentoDTO.class)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);	
 	
 	}
@@ -44,28 +44,28 @@ public class AdministradorController {
 	//create
 	@RequestMapping(value = "/adicionar")
 	@PostMapping
-	public ResponseEntity<AdministradorDTO>adicionar(@RequestBody AdministradorDTO AdministradorDTO){
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(administradorService.create(AdministradorDTO).getId()).toUri();	
+	public ResponseEntity<PagamentoDTO>adicionar(@RequestBody PagamentoDTO pagamentoDTO){
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(pagamentoService.create(pagamentoDTO).getId()).toUri();	
 		return ResponseEntity.created(uri).build();
 	}
 	
 	//read
 	@GetMapping(value="/findById/{id}")
-	public ResponseEntity<AdministradorDTO>ler(@PathVariable(value="id") int id){
-	return ResponseEntity.status(HttpStatus.OK).body(mapper.map(administradorService.findById(id), AdministradorDTO.class));		
+	public ResponseEntity<PagamentoDTO>ler(@PathVariable(value="id") int id){
+	return ResponseEntity.status(HttpStatus.OK).body(mapper.map(pagamentoService.findById(id), PagamentoDTO.class));		
 	}
 	
 	//update
 	@RequestMapping(value = "/update")
 	@PutMapping
-	public ResponseEntity<Object> atualizar(@RequestBody AdministradorDTO Administrador){
-	return ResponseEntity.status(HttpStatus.OK).body(administradorService.update(Administrador));	
+	public ResponseEntity<Object> atualizar(@RequestBody PagamentoDTO pagamento){
+	return ResponseEntity.status(HttpStatus.OK).body(pagamentoService.update(pagamento));	
 	}
 	
 	//delete
 	@DeleteMapping(value = "/delete/{id}")
 	public ResponseEntity<Void>delete(@PathVariable int id){
-		administradorService.delete(id);
+		pagamentoService.delete(id);
 		return ResponseEntity.noContent().build(); // o noContent retorna um conteudo vazio 204
 	}
 	

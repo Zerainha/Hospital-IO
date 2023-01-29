@@ -17,26 +17,26 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import br.com.hospital.io.model.Administrador;
-import br.com.hospital.io.model.dto.AdministradorDTO;
+import br.com.hospital.io.model.Anamnese;
+import br.com.hospital.io.model.dto.AnamneseDTO;
 
-import br.com.hospital.io.service.AdministradorService;
+import br.com.hospital.io.service.AnamneseService;
 
 @RestController
-@RequestMapping(value = "/administrador/v1/api")
-public class AdministradorController {
+@RequestMapping(value = "/Anamnese/v1/api")
+public class AnamneseController {
 	
 	@Autowired
-	private AdministradorService administradorService;
+	private AnamneseService anamneseService;
 	
 	@Autowired
 	private ModelMapper mapper; // BEAN CRIADO PARA INSTANCIAR O MAPPER 
 	
 	//FindAll
 	@GetMapping(value="/listar")
-	public ResponseEntity<List<AdministradorDTO>> findAll(){
-		List<Administrador> list = administradorService.findAll();
-		List<AdministradorDTO> listDTO = list.stream().map(Administrador -> mapper.map(Administrador, AdministradorDTO.class)).collect(Collectors.toList());
+	public ResponseEntity<List<AnamneseDTO>> findAll(){
+		List<Anamnese> list = anamneseService.findAll();
+		List<AnamneseDTO> listDTO = list.stream().map(anamnese -> mapper.map(anamnese, AnamneseDTO.class)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);	
 	
 	}
@@ -44,28 +44,28 @@ public class AdministradorController {
 	//create
 	@RequestMapping(value = "/adicionar")
 	@PostMapping
-	public ResponseEntity<AdministradorDTO>adicionar(@RequestBody AdministradorDTO AdministradorDTO){
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(administradorService.create(AdministradorDTO).getId()).toUri();	
+	public ResponseEntity<AnamneseDTO>adicionar(@RequestBody AnamneseDTO anamneseDTO){
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(anamneseService.create(anamneseDTO).getId()).toUri();	
 		return ResponseEntity.created(uri).build();
 	}
 	
 	//read
 	@GetMapping(value="/findById/{id}")
-	public ResponseEntity<AdministradorDTO>ler(@PathVariable(value="id") int id){
-	return ResponseEntity.status(HttpStatus.OK).body(mapper.map(administradorService.findById(id), AdministradorDTO.class));		
+	public ResponseEntity<AnamneseDTO>ler(@PathVariable(value="id") int id){
+	return ResponseEntity.status(HttpStatus.OK).body(mapper.map(anamneseService.findById(id), AnamneseDTO.class));		
 	}
 	
 	//update
 	@RequestMapping(value = "/update")
 	@PutMapping
-	public ResponseEntity<Object> atualizar(@RequestBody AdministradorDTO Administrador){
-	return ResponseEntity.status(HttpStatus.OK).body(administradorService.update(Administrador));	
+	public ResponseEntity<Object> atualizar(@RequestBody AnamneseDTO anamnese){
+	return ResponseEntity.status(HttpStatus.OK).body(anamneseService.update(anamnese));	
 	}
 	
 	//delete
 	@DeleteMapping(value = "/delete/{id}")
 	public ResponseEntity<Void>delete(@PathVariable int id){
-		administradorService.delete(id);
+		anamneseService.delete(id);
 		return ResponseEntity.noContent().build(); // o noContent retorna um conteudo vazio 204
 	}
 	

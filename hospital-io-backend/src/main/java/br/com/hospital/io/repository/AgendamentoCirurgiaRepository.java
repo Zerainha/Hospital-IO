@@ -7,5 +7,5 @@ import br.com.hospital.io.model.AgendamentoCirurgia;
 
 @Repository
 public interface AgendamentoCirurgiaRepository extends JpaRepository<AgendamentoCirurgia, Long>{
-
+	
 }

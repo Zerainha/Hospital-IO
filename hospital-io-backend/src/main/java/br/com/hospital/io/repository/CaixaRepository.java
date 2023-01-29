@@ -7,5 +7,4 @@ import br.com.hospital.io.model.Caixa;
 
 @Repository
 public interface CaixaRepository extends JpaRepository<Caixa, Long>{
-
 }
